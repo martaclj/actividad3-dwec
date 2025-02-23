@@ -1,34 +1,38 @@
-import { Injectable } from "@angular/core";
-import { IUser } from "../interfaces/iuser";
-import { BehaviorSubject, Observable } from "rxjs";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { IUser } from '../interfaces/iuser';
 
 @Injectable({
-    providedIn: 'root',
+  providedIn: 'root'
 })
 export class UserService {
-    private users: IUser[] = [];
-    private usersSubject = new BehaviorSubject<IUser[]>(this.users);
+  private apiUrl = 'https://peticiones.online/users';
 
-    constructor() {
-        this.loadUsers();
-    }
+  constructor(private http: HttpClient) {}
 
-    getUsers(): Observable<IUser[]> {
-        return this.usersSubject.asObservable();
-    }
-
-    loadUsers(): void {
-        this.users = [
-            { id: 1, name: 'Jaime Ruiz', email: 'jruiz@daw.com', age: 30 },
-            { id: 2, name: 'Ana Pérez', email: 'aperez@daw.com', age: 25 },
-            { id: 3, name: 'Estefania López', email: 'elopez@daw.com', age: 23 }
-        ];
-        this.usersSubject.next(this.users);
-    }
-
-    addUser(user: IUser): void {
-      user.id = this.users.length + 1;
-      this.users.push(user);
-      this.usersSubject.next(this.users);
-    }
+  getUsers(): Observable<IUser[]> {
+    return this.http.get<IUser[]>(this.apiUrl);
   }
+
+  getUserById(id: number): Observable<IUser> {
+    return this.http.get<IUser>(`${this.apiUrl}/${id}`);
+  }
+
+  createUser(user: IUser): Observable<IUser> {
+    return this.http.post<IUser>(this.apiUrl, user);
+  }
+
+  addUser(user: IUser): Observable<IUser> {
+    return this.http.post<IUser>(this.apiUrl, user);
+  }
+
+
+  updateUser(id: number, user: IUser): Observable<IUser> {
+    return this.http.put<IUser>(`${this.apiUrl}/${id}`, user);
+  }
+
+  deleteUser(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+}

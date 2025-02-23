@@ -1,29 +1,3 @@
-<header>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Angular 8 CRUD</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav
-      ">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Usuarios</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
-</header>
-
-<div class="container mt-4">
-  <h2>Lista de Usuarios</h2>
-  <div class="row">
-    <div *ngFor="let user of users" class="col-md-4">
-      <app-user-card [user]="user" (delete)="onDeleteUser(user.id)"></app-user-card>
-    </div>
-  </div>
-</div>
-
-<app-user-form (create)="onCreateUser($event)"></app-user-form>
-
+<header><h1>Gestión de Usuarios</h1></header>
+<app-user-form (userCreated)="addUser($event)"></app-user-form>
+<app-user-list></app-user-list>
