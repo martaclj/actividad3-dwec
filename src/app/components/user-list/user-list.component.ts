@@ -22,8 +22,13 @@ export class UserListComponent implements OnChanges {
   renderUsers(): void {
     this.container.clear();
     this.users.forEach(user => {
+      const column = document.createElement('div');
+      column.className = 'col-md-4';
       const componentRef = this.container.createComponent(UserCardComponent);
       componentRef.instance.user = user;
+      column.appendChild(componentRef.location.nativeElement);
+      this.container.element.nativeElement.appendChild(column);
     });
   }
+
 }
