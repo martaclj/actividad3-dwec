@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { IUser } from './interfaces/iuser';
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { UserService } from './services/user.service';
-import { IUser } from './interfaces/iuser';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -10,15 +10,18 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule, UserFormComponent, UserListComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'actividad3-dwec';
+export class AppComponent implements OnInit {
+  users: IUser[] = [];
 
-  constructor(public userService: UserService) {}
+  constructor(private userService: UserService) {}
 
-  addUser(newUser: IUser): void {
-    this.userService.addUser(newUser);
+  ngOnInit(): void {
+    this.userService.getUsers().subscribe(users => this.users = users);
   }
 
+  onUserCreated(newUser: IUser): void {
+    this.users = [...this.users, newUser];
+  }
 }

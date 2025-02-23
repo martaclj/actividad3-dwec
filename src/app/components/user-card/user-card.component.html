@@ -1,8 +1,7 @@
 <div class="card">
+  <img [src]="user.image" class="card-img-top" alt="Foto de usuario">
   <div class="card-body">
     <h5 class="card-title">{{ user.name }}</h5>
     <p class="card-text">Email: {{ user.email }}</p>
-    <p class="card-text">Edad: {{ user.age }}</p>
-    <button class="btn btn-danger" (click)="onDelete()">Eliminar</button>
   </div>
 </div>

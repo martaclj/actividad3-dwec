@@ -1,3 +1,3 @@
 <header><h1>Gestión de Usuarios</h1></header>
-<app-user-form (userCreated)="addUser($event)"></app-user-form>
-<app-user-list></app-user-list>
+<app-user-form (userCreated)="onUserCreated($event)"></app-user-form>
+<app-user-list [users]="users"></app-user-list>

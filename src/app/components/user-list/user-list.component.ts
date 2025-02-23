@@ -1,30 +1,29 @@
-import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../services/user.service';
+import { Component, Input, ViewChild, ViewContainerRef, OnChanges, SimpleChanges } from '@angular/core';
 import { IUser } from '../../interfaces/iuser';
+import { UserCardComponent } from '../user-card/user-card.component';
 
 @Component({
   selector: 'app-user-list',
   standalone: true,
+  imports: [UserCardComponent],
   templateUrl: './user-list.component.html',
-  styleUrl: './user-list.component.css'
+  styleUrls: ['./user-list.component.css']
 })
-export class UserListComponent implements OnInit {
-  users: IUser[] = [];
+export class UserListComponent implements OnChanges {
+  @Input() users: IUser[] = [];
+  @ViewChild('userContainer', { read: ViewContainerRef, static: true }) container!: ViewContainerRef;
 
-  constructor(private userService: UserService) {}
-
-  ngOnInit(): void {
-    this.userService.getUsers().subscribe({
-      next: (users) => (this.users = users),
-      error: (err) => console.error('Error al cargar usuarios', err),
-    });
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['users']) {
+      this.renderUsers();
+    }
   }
 
-  onDeleteUser(id: number): void {
-    if (confirm('¿Estás seguro de que quieres eliminar este usuario?')) {
-      this.userService.deleteUser(id).subscribe(() => {
-        this.users = this.users.filter(user => user.id !== id);
-      });
-    }
+  renderUsers(): void {
+    this.container.clear();
+    this.users.forEach(user => {
+      const componentRef = this.container.createComponent(UserCardComponent);
+      componentRef.instance.user = user;
+    });
   }
 }
