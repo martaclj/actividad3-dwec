@@ -14,14 +14,17 @@ export class UserListComponent implements OnInit {
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {
-    this.userService.getUsers().subscribe(users => {
-      this.users = users;
+    this.userService.getUsers().subscribe({
+      next: (users) => (this.users = users),
+      error: (err) => console.error('Error al cargar usuarios', err),
     });
   }
 
-  deleteUser(id: number): void {
-    this.userService.deleteUser(id).subscribe(() => {
-      this.users = this.users.filter(user => user.id !== id);
-    });
+  onDeleteUser(id: number): void {
+    if (confirm('¿Estás seguro de que quieres eliminar este usuario?')) {
+      this.userService.deleteUser(id).subscribe(() => {
+        this.users = this.users.filter(user => user.id !== id);
+      });
+    }
   }
 }

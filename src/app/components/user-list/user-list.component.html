@@ -1,17 +1,10 @@
 <div class="container mt-4">
   <h2>Lista de Usuarios</h2>
   <div class="row">
-    <ng-container *for="let user of users; track user.id">
+    @for (let user of users; track user.id) {
       <div class="col-md-4">
-        <div class="card">
-          <img [src]="user.image" class="card-img-top">
-          <div class="card-body">
-            <h5 class="card-title">{{ user.name }}</h5>
-            <p class="card-text">{{ user.email }}</p>
-            <button (click)="deleteUser(user.id)" class="btn btn-danger">Eliminar</button>
-          </div>
-        </div>
+        <app-user-card [user]="user" (delete)="onDeleteUser(user.id)"></app-user-card>
       </div>
-    </ng-container>
+    }
   </div>
 </div>
