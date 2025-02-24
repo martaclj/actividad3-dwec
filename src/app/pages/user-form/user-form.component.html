@@ -11,6 +11,6 @@
     <label class="form-label">Edad</label>
     <input type="number" formControlName="age" class="form-control">
   </div>
-  <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">Añadir</button>
+  <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">{{ isUpdate ? 'Actualizar' : 'Añadir' }}</button>
+  <a [routerLink]="isUpdate ? ['/user', userId] : ['/home']" class="btn btn-secondary ms-2">Cancelar</a>
 </form>
-

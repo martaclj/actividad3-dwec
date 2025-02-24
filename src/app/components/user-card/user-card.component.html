@@ -4,9 +4,9 @@
     <h5 class="card-title">{{ user.name }}</h5>
     <p class="card-text">Email: {{ user.email }}</p>
     <div class="d-flex justify-content-around">
-      <button class="btn btn-sm btn-primary">Ver detalle</button>
-      <button class="btn btn-sm btn-warning">Actualizar</button>
-      <button class="btn btn-sm btn-danger">Borrar</button>
+      <a [routerLink]="['/user', user.id]" class="btn btn-sm btn-primary">Ver detalle</a>
+      <a [routerLink]="['/updateuser', user.id]" class="btn btn-sm btn-warning">Actualizar</a>
+      <button class="btn btn-sm btn-danger" (click)="borrarUser()">Borrar</button>
     </div>
   </div>
 </div>

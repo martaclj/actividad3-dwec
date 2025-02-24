@@ -1,34 +1,19 @@
-import { Component, Input, ViewChild, ViewContainerRef, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { IUser } from '../../interfaces/iuser';
 import { UserCardComponent } from '../user-card/user-card.component';
 
 @Component({
   selector: 'app-user-list',
   standalone: true,
-  imports: [UserCardComponent],
+  imports: [CommonModule, RouterModule, UserCardComponent],
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css']
 })
-export class UserListComponent implements OnChanges {
+export class UserListComponent {
   @Input() users: IUser[] = [];
-  @ViewChild('userContainer', { read: ViewContainerRef, static: true }) container!: ViewContainerRef;
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['users']) {
-      this.renderUsers();
-    }
+  trackById(index: number, user: IUser): number {
+    return user.id;
   }
-
-  renderUsers(): void {
-    this.container.clear();
-    this.users.forEach(user => {
-      const column = document.createElement('div');
-      column.className = 'col-md-4';
-      const componentRef = this.container.createComponent(UserCardComponent);
-      componentRef.instance.user = user;
-      column.appendChild(componentRef.location.nativeElement);
-      this.container.element.nativeElement.appendChild(column);
-    });
-  }
-
 }
