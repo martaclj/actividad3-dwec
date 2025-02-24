@@ -14,6 +14,10 @@ export class UserCardComponent {
   @Input() user!: IUser;
   constructor(private userService: UserService, private router: Router) {}
   borrarUser(): void {
-    this.userService.deleteUser(this.user.id).subscribe(() => window.location.reload());
+    if (confirm('¿Está seguro de eliminar a ' + this.user.name + '?')) {
+      this.userService.deleteUser(this.user.id).subscribe(() => {
+        this.router.navigate(['/home']);
+      });
+    }
   }
 }

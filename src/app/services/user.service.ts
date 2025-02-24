@@ -18,7 +18,7 @@ export class UserService {
         email: user.email,
         image: user.image,
         age: user.age
-      })))
+      } as IUser)))
     );
   }
   getUserById(id: number): Observable<IUser> {

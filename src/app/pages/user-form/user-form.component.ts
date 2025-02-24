@@ -16,7 +16,8 @@ export class UserFormComponent implements OnInit {
   userForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    age: new FormControl(0, [Validators.required, Validators.min(1)])
+    age: new FormControl(0, [Validators.required, Validators.min(1)]),
+    image: new FormControl('', [])
   });
   isUpdate = false;
   userId: number | null = null;
@@ -30,7 +31,8 @@ export class UserFormComponent implements OnInit {
         this.userForm.patchValue({
           name: u.name,
           email: u.email,
-          age: u.age
+          age: u.age,
+          image: u.image
         });
       });
     }
@@ -40,7 +42,8 @@ export class UserFormComponent implements OnInit {
       const userData: Partial<IUser> = {
         name: this.userForm.value.name || '',
         email: this.userForm.value.email || '',
-        age: this.userForm.value.age !== null ? Number(this.userForm.value.age) : 0
+        age: this.userForm.value.age !== null ? Number(this.userForm.value.age) : 0,
+        image: this.userForm.value.image || `https://i.pravatar.cc/500?u=${this.userForm.value.email}`
       };
       if (this.isUpdate && this.userId !== null) {
         this.userService.updateUser(this.userId, userData).subscribe(() => {
