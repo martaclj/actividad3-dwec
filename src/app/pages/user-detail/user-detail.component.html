@@ -1,7 +1,7 @@
 <div class="container mt-4">
   <h2>Detalles del Usuario</h2>
-  <p><strong>Nombre:</strong> {{ user?.name }}</p>
-  <p><strong>Email:</strong> {{ user?.email }}</p>
-  <p><strong>Edad:</strong> {{ user?.age }}</p>
+  <p><strong>Nombre:</strong> {{ user?.name ?? 'No disponible' }}</p>
+  <p><strong>Email:</strong> {{ user?.email ?? 'No disponible' }}</p>
+  <p><strong>Edad:</strong> {{ user?.age ?? 'No disponible' }}</p>
   <a [routerLink]="['/home']" class="btn btn-secondary">Volver</a>
 </div>

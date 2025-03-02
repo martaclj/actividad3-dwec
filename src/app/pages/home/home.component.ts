@@ -9,7 +9,7 @@ import { UserService } from '../../services/user.service';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, UserFormComponent, UserListComponent],
+  imports: [CommonModule, UserFormComponent, UserListComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })

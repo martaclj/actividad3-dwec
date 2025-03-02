@@ -13,7 +13,12 @@ import { UserCardComponent } from '../user-card/user-card.component';
 })
 export class UserListComponent {
   @Input() users: IUser[] = [];
+
   trackById(index: number, user: IUser): number {
     return user.id;
+  }
+
+  deleteUser(userId: number): void {
+    this.users = this.users.filter(user => user.id !== userId);
   }
 }

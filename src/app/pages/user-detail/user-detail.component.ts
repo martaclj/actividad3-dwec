@@ -14,10 +14,25 @@ import { IUser } from '../../interfaces/iuser';
 export class UserDetailComponent {
   user: IUser | null = null;
   constructor(private userService: UserService, private route: ActivatedRoute, private router: Router) {}
+
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     if (id) {
-      this.userService.getUserById(id).subscribe(u => this.user = u, () => this.router.navigate(['/home']));
-    }
-  }
+      this.userService.getUserById(id).subscribe({
+        next: (user) => {
+          if (user) {
+            this.user = user;
+          } else {
+            alert('Usuario no encontrado');
+            this.router.navigate(['/home']);
+          }
+        },
+        error: (error) => {
+          alert('Error al cargar usuario: ' + error);
+          this.router.navigate(['/home']);
+        }
+  });
 }
+}
+}
+

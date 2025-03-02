@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter , Input, Output } from '@angular/core';
 import { RouterModule, Router } from '@angular/router';
 import { IUser } from '../../interfaces/iuser';
 import { UserService } from '../../services/user.service';
@@ -12,6 +12,8 @@ import { UserService } from '../../services/user.service';
 })
 export class UserCardComponent {
   @Input() user!: IUser;
+  @Output() userDeleted = new EventEmitter<number>();
+
   constructor(private userService: UserService, private router: Router) {}
 
   deleteUser(user: IUser) {
@@ -19,7 +21,7 @@ export class UserCardComponent {
       this.userService.deleteUser(user.id).subscribe({
         next: () => {
           alert('Usuario borrado!');
-          this.router.navigate(['/home']);
+          this.userDeleted.emit(user.id);
         },
         error: (error) => {
           alert('Error: no eliminado! ' + error);

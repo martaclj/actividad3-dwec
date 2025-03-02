@@ -28,15 +28,20 @@ export class UserFormComponent implements OnInit {
       this.isUpdate = true;
       this.userId = Number(id);
       this.userService.getUserById(this.userId).subscribe(user => {
-        this.userForm.patchValue({
-          name: user.name,
-          email: user.email,
-          age: user.age,
-          image: user.image
+        if (user) {
+          this.userForm.patchValue({
+          name: user.name ?? '',
+          email: user.email ?? '',
+          age: user.age ?? 0,
+          image: user.image ?? 'https://i.pravatar.cc/500'
         });
-      });
-    }
+      } else {
+        alert('Usuario no encontrado');
+        this.router.navigate(['/home']);
+      }
+    });
   }
+}
   addUser(): void {
     if (this.userForm.valid) {
       const userData: Partial<IUser> = {

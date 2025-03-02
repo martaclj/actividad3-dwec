@@ -3,7 +3,7 @@
   <div class="row g-3">
     @for(user of users; track user.id) {
     <article class="col-12 col-md-4">
-      <app-user-card [user]="user"></app-user-card>
+      <app-user-card [user]="user" (userDeleted)="deleteUser($event)"></app-user-card>
     </article>
     }
   </div>
