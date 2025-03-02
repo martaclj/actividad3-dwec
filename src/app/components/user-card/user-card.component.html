@@ -6,7 +6,7 @@
     <div class="d-flex justify-content-around">
       <a [routerLink]="['/user', user.id]" class="btn btn-sm btn-primary">Ver detalle</a>
       <a [routerLink]="['/updateuser', user.id]" class="btn btn-sm btn-warning">Actualizar</a>
-      <button class="btn btn-sm btn-danger" (click)="borrarUser()">Borrar</button>
+      <button class="btn btn-sm btn-danger" (click)="deleteUser(user)">Borrar</button>
     </div>
   </div>
 </div>

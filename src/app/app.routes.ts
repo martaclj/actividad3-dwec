@@ -8,5 +8,7 @@ export const routes: Routes = [
   { path: 'user/:id', component: UserDetailComponent },
   { path: 'newuser', component: UserFormComponent },
   { path: 'updateuser/:id', component: UserFormComponent },
+  { path: 'useredit/:id', component: UserFormComponent },
+  { path: 'userdelete/:id', component: UserFormComponent },
   { path: '**', redirectTo: 'home' }
 ];

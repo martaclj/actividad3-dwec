@@ -13,10 +13,17 @@ import { UserService } from '../../services/user.service';
 export class UserCardComponent {
   @Input() user!: IUser;
   constructor(private userService: UserService, private router: Router) {}
-  borrarUser(): void {
-    if (confirm('¿Está seguro de eliminar a ' + this.user.name + '?')) {
-      this.userService.deleteUser(this.user.id).subscribe(() => {
-        this.router.navigate(['/home']);
+
+  deleteUser(user: IUser) {
+    if (confirm('¿Quieres borrar a ' + user.name + '?')) {
+      this.userService.deleteUser(user.id).subscribe({
+        next: () => {
+          alert('Usuario borrado!');
+          this.router.navigate(['/home']);
+        },
+        error: (error) => {
+          alert('Error: no eliminado! ' + error);
+        }
       });
     }
   }

@@ -27,12 +27,12 @@ export class UserFormComponent implements OnInit {
     if (id) {
       this.isUpdate = true;
       this.userId = Number(id);
-      this.userService.getUserById(this.userId).subscribe(u => {
+      this.userService.getUserById(this.userId).subscribe(user => {
         this.userForm.patchValue({
-          name: u.name,
-          email: u.email,
-          age: u.age,
-          image: u.image
+          name: user.name,
+          email: user.email,
+          age: user.age,
+          image: user.image
         });
       });
     }
